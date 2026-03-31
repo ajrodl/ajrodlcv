@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="91a0cfc0-487f-4da9-a6a9-8e256be25769"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CV — A. Jonathan Rodríguez</title>
@@ -317,6 +319,21 @@ footer{padding:60px 40px;text-align:center;font-size:.7rem;color:var(--muted)}
 .contacto-card svg {
   fill: currentColor;
 }
+
+#map {
+  height: 400px;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  z-index: 1; /* Para que no se superponga al menú */
+}
+
+.map-section {
+  padding: 80px 40px;
+  max-width: 1100px;
+  margin: auto;
+}
 </style>
 </head>
 <body>
@@ -437,7 +454,7 @@ footer{padding:60px 40px;text-align:center;font-size:.7rem;color:var(--muted)}
     <div class="exp-date">2004 — 2007</div>
     <div class="exp-role">Electronic Engineering</div>
     <div class="exp-company">UAM</div>
-    <div class="exp-desc">Academic background in Electronic Engineering.</div>
+    <div class="exp-desc">Academic Background</div>
   </div>
 </section>
 
@@ -485,6 +502,12 @@ footer{padding:60px 40px;text-align:center;font-size:.7rem;color:var(--muted)}
       <div class="slide"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Office_Depot_logo_%28horizontal%29.svg" alt="Office Depot"></div>
     </div>
   </div>
+</section>
+
+<section class="map-section">
+  <h2 class="sec-title">Global Experience</h2>
+  <p class="hero-desc">In-person and remote collaborations worldwide.</p>
+  <div id="map"></div>
 </section>
 
 <section id="certificaciones">
@@ -562,6 +585,36 @@ footer{padding:60px 40px;text-align:center;font-size:.7rem;color:var(--muted)}
 <footer>
   © 2026 — Jonathan Rodríguez
 </footer>
+<script>
+ 
+  var map = L.map('map').setView([20, -20], 2);
 
+  
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+ 
+  var countries = [
+    { name: "Spain", coords: [40.4168, -3.7038] },
+    { name: "México", coords: [19.4326, -99.1332] },
+    { name: "United Kingdom", coords: [51.5074, -0.1278] },
+    { name: "Costa Rica", coords: [9.9281, -84.0907] },
+    { name: "United States", coords: [37.0902, -95.7129] },
+    { name: "Ecuador", coords: [-1.8312, -78.1834] },
+    { name: "Venezuela", coords: [6.4238, -66.5897] },
+    { name: "Brazil", coords: [-14.2350, -51.9253] },
+    { name: "Belgium", coords: [50.8503, 4.3517] },
+    { name: "Sweden", coords: [59.3293, 18.0686] },
+    { name: "Germany", coords: [51.1657, 10.4515] }
+  ];
+
+
+  countries.forEach(function(country) {
+    L.marker(country.coords)
+      .addTo(map)
+      .bindPopup("<b>" + country.name + "</b>");
+  });
+</script>
 </body>
 </html>
